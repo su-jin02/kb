@@ -1,4 +1,4 @@
-package com.unicorn.store.handler.exception.http;
+package com.unicorn.store.exceptions.http;
 
 import java.util.Map;
 

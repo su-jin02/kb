@@ -1,4 +1,4 @@
-package com.unicorn.store.handler.exception;
+package com.unicorn.store.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

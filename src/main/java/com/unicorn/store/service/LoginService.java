@@ -1,7 +1,7 @@
 package com.unicorn.store.service;
 
-import com.unicorn.store.handler.exception.ErrorCode;
-import com.unicorn.store.handler.exception.http.CustomForbiddenException;
+import com.unicorn.store.exceptions.ErrorCode;
+import com.unicorn.store.exceptions.http.CustomForbiddenException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

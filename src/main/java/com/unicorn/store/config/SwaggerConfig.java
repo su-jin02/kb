@@ -1,4 +1,4 @@
-package com.unicorn.store.handler.config;
+package com.unicorn.store.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

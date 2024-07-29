@@ -1,11 +1,11 @@
-package com.unicorn.store.handler.exception;
+package com.unicorn.store.exceptions;
 
 import com.unicorn.store.dto.common.CMRes;
 import com.unicorn.store.dto.common.ErrorRes;
-import com.unicorn.store.handler.exception.http.*;
-import com.unicorn.store.handler.exception.token.ExpiredJwtTokenException;
-import com.unicorn.store.handler.exception.token.ExpiredTokenException;
-import com.unicorn.store.handler.exception.token.InvalidTokenException;
+import com.unicorn.store.exceptions.http.*;
+import com.unicorn.store.exceptions.token.ExpiredJwtTokenException;
+import com.unicorn.store.exceptions.token.ExpiredTokenException;
+import com.unicorn.store.exceptions.token.InvalidTokenException;
 import com.unicorn.store.security.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.UnexpectedTypeException;
@@ -21,7 +21,7 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
-import static com.unicorn.store.handler.exception.ErrorCode.*;
+import static com.unicorn.store.exceptions.ErrorCode.*;
 
 /**
  * NAME: CustomExceptionHandler 를 이용해 예외처리

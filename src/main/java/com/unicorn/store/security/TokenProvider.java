@@ -1,10 +1,10 @@
 package com.unicorn.store.security;
 
 import com.unicorn.store.model.User;
-import com.unicorn.store.handler.exception.http.CustomForbiddenException;
-import com.unicorn.store.handler.exception.token.ExpiredJwtTokenException;
-import com.unicorn.store.handler.exception.token.InvalidTokenException;
-import com.unicorn.store.handler.exception.ErrorCode;
+import com.unicorn.store.exceptions.http.CustomForbiddenException;
+import com.unicorn.store.exceptions.token.ExpiredJwtTokenException;
+import com.unicorn.store.exceptions.token.InvalidTokenException;
+import com.unicorn.store.exceptions.ErrorCode;
 import com.unicorn.store.security.dto.TokenResponseDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
