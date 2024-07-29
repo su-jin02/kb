@@ -1,24 +1,36 @@
-# Use a base image with Maven 3.9.8 and JDK 17
-FROM public.ecr.aws/docker/library/maven:3.8.1-amazoncorretto-17 as builder
+# Use a base image with Maven and JDK 17
+FROM maven:3.8.6-amazoncorretto-17 as builder
 
+# Set the working directory
+WORKDIR /app
+
+# Copy the pom.xml and download dependencies
 COPY ./pom.xml ./pom.xml
+RUN mvn dependency:purge-local-repository && mvn dependency:go-offline -f ./pom.xml
 
-# Force update of dependencies
-RUN mvn dependency:go-offline -U -f ./pom.xml
+# Copy the source code
+COPY ./src ./src
 
-COPY src ./src/
-RUN mvn clean package && mv target/store-spring-1.0.0-exec.jar store-spring.jar
-RUN rm -rf ~/.m2/repository
+# Package the application
+RUN mvn clean package -DskipTests
 
-FROM public.ecr.aws/docker/library/amazoncorretto:17-al2023
-RUN yum install -y shadow-utils
+# Use the amazoncorretto base image for the runtime
+FROM amazoncorretto:17-alpine-jdk
 
-COPY --from=builder store-spring.jar store-spring.jar
+# Set the working directory
+WORKDIR /app
 
-RUN groupadd --system spring -g 1000
-RUN adduser spring -u 1000 -g 1000
+# Copy the packaged jar from the builder stage
+COPY --from=builder /app/target/store-spring-1.0.0.jar store-spring.jar
 
-USER 1000:1000
+# Create a user and group for running the application
+RUN addgroup -S spring && adduser -S spring -G spring
 
+# Set the user to run the application
+USER spring:spring
+
+# Expose the application port
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","-Dserver.port=8080","/store-spring.jar"]
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "store-spring.jar"]
