@@ -1,0 +1,35 @@
+[
+    {
+        "name": "unicorn-store-spring",
+        "image": "568558386229.dkr.ecr.us-west-2.amazonaws.com/unicorn-store-spring:latest",
+        "portMappings": [
+            {
+                "name": "unicorn-store-spring-8080-tcp",
+                "containerPort": 8080,
+                "hostPort": 8080,
+                "protocol": "tcp",
+                "appProtocol": "http"
+            }
+        ],
+        "essential": true,
+        "secrets": [
+            {
+                "name": "SPRING_DATASOURCE_URL",
+                "valueFrom": "arn:aws:ssm:us-west-2:568558386229:parameter/databaseJDBCConnectionString"
+            },
+            {
+                "name": "SPRING_DATASOURCE_PASSWORD",
+                "valueFrom": "arn:aws:secretsmanager:us-west-2:568558386229:secret:unicornstore-db-secret-password-PmGxb1"
+            }
+        ],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "/ecs/unicorn-store-spring",
+                "awslogs-create-group": "true",
+                "awslogs-region": "us-west-2",
+                "awslogs-stream-prefix": "ecs"
+            }
+        }
+    }
+]
