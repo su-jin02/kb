@@ -1,0 +1,7 @@
+crac-files/*
+target/*
+*.jar
+dockerfiles/*
+Dockerfile_*
+k8s/*
+scripts/*
