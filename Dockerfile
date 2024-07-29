@@ -1,4 +1,5 @@
-FROM public.ecr.aws/docker/library/maven:3-amazoncorretto-21-al2023 AS builder
+# Use a base image with Maven 3.9.8 and JDK 17
+FROM public.ecr.aws/docker/library/maven:3.9.8-amazoncorretto-17 as builder
 
 COPY ./pom.xml ./pom.xml
 RUN mvn dependency:go-offline -f ./pom.xml
@@ -7,7 +8,7 @@ COPY src ./src/
 RUN mvn clean package && mv target/store-spring-1.0.0-exec.jar store-spring.jar
 RUN rm -rf ~/.m2/repository
 
-FROM public.ecr.aws/docker/library/amazoncorretto:21-al2023
+FROM public.ecr.aws/docker/library/amazoncorretto:17-al2023
 RUN yum install -y shadow-utils
 
 COPY --from=builder store-spring.jar store-spring.jar
