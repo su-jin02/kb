@@ -1,6 +1,7 @@
 package com.unicorn.store.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unicorn.store.response.BaseResponse;
 import com.unicorn.store.response.BaseResponseStatus;
 import com.unicorn.store.dto.common.ErrorRes;
@@ -18,6 +19,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 @Tag(name = "user", description = "유저 관련 API")
@@ -45,8 +49,32 @@ public class UserController {
      */
     @Operation(summary = "소셜로그인", description = "카카오 로그인/회원가입 API 입니다.")
     @GetMapping(value = "/login/oauth2/code/kakao", produces = "application/json")
-    public BaseResponse<TokenResponseDto> kakaoCallback(@RequestParam String code) throws JsonProcessingException {
-        return BaseResponse.success(BaseResponseStatus.OK, userService.socialLogin(code));
+    public ModelAndView kakaoCallback(@RequestParam String code, RedirectAttributes redirectAttributes) throws JsonProcessingException {
+        TokenResponseDto tokenResponse = userService.socialLogin(code);
+
+        // Convert tokenResponse to JSON string
+        ObjectMapper objectMapper = new ObjectMapper();
+        String tokenResponseJson = objectMapper.writeValueAsString(tokenResponse);
+
+        // Add tokenResponseJson as a flash attribute
+        redirectAttributes.addFlashAttribute("tokenResponseJson", tokenResponseJson);
+
+        // Redirect to home
+        return new ModelAndView("redirect:/home");
+    }
+
+    @GetMapping("/home")
+    public ModelAndView home(@ModelAttribute("tokenResponseJson") String tokenResponseJson) throws JsonProcessingException {
+        ModelAndView modelAndView = new ModelAndView("home");
+
+        if (tokenResponseJson != null) {
+            // Convert JSON string back to TokenResponseDto
+            ObjectMapper objectMapper = new ObjectMapper();
+            TokenResponseDto tokenResponse = objectMapper.readValue(tokenResponseJson, TokenResponseDto.class);
+            modelAndView.addObject("nickname", tokenResponse.getNickname());
+        }
+
+        return modelAndView;
     }
 
     /**

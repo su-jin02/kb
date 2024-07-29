@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 import java.util.List;
 
@@ -19,7 +22,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-@RestController
+@Controller
 public class UnicornController {
     private final UnicornService unicornService;
     private static final Logger logger = LoggerFactory.getLogger(UnicornController.class);
@@ -95,8 +98,8 @@ public class UnicornController {
         }
     }
     @GetMapping("/")
-    public ResponseEntity<String> getWelcomeMessage() {
-        return new ResponseEntity<>("Welcome to the sujin!!!! WORLD!", HttpStatus.OK);
+    public String getWelcomeMessage() {
+        return "login";
     }
     
     @GetMapping("/hostname")
