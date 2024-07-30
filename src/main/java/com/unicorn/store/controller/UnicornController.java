@@ -101,6 +101,11 @@ public class UnicornController {
     public String getWelcomeMessage() {
         return "board";
     }
+
+    @GetMapping("/login")
+    public String getLogin() {
+        return "login";
+    }
     
     @GetMapping("/hostname")
     public ResponseEntity<String> getHostname() {

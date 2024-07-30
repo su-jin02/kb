@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visitor</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/visitor.css}" />
     <link rel="stylesheet" type="text/css" href="/css/visitor.css" />
@@ -17,23 +17,15 @@
 <body>
 <header class="header">
     <a href="#"><img class="back" src="/img/backicon.svg" alt="뒤로가기"></a>
-    <img class="prism" src="/img/prismPink.svg" alt="로고" id="logo">
+    <img class="prism" src="/img/kb.png" alt="로고" id="logo">
     <input class="menu-btn" type="checkbox" id="menu-btn" />
     <label class="menu-icon" for="menu-btn" onclick="toggle()">
+        <p id="userNickname" th:text="'Hello, ' + ${nickname} + '!'">Loading...</p>
         <div class="menu-button">
-            <img src="/img/hamburger.svg" alt="메뉴">
+            <a href="/login">
+            <img src="/img/user.png" alt="유저"></a>
         </div>
     </label>
-    <ul class="menu">
-        <li><a href="#">타임테이블</a></li>
-        <li><a href="#">축제 지도 확인하기</a></li>
-        <li><a href="#">플리마켓 / 제휴부스 / 총학부스</a></li>
-        <li><a href="#">굿즈 구매 예약</a></li>
-        <li><a href="#">공지사항</a></li>
-        <li><a href="#">방명록</a></li>
-        <li><a href="#">만든이들</a></li>
-        <a href="#"><div class="box">관리자 모드</div></a>
-    </ul>
 </header>
 <form action="" method="POST" enctype="multipart/form-data">
     <div class="container_main" id="blur">
@@ -43,13 +35,13 @@
                     <div class="title_photo">
                         <img src="/img/staricon.svg" alt="Star Icon">
                     </div>
-                    <div class="title_tx">방명록</div>
+                    <div class="title_tx">정보 확인</div>
                 </div>
                 <div class="container">
-                    <div class="title_ex">수정이들의 소중한 방명록!</div>
+                    <div class="title_ex">데이터를 활용해!</div>
                     <!-- 글쓰기 화면과 연결하기 -->
                     <a href="/visitor/write" class="write_btn">
-                        <div class="write_btn_tx">방명록 작성하기</div>
+                        <div class="write_btn_tx">검사하기</div>
                     </a>
 
                     <!-- 백엔드랑 연결할 부분 -->
@@ -62,11 +54,6 @@
                                 <span class="date" th:text="${#dates.format(visitor.date, 'yyyy.MM.dd')}">작성 날짜</span>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- 더보기 버튼 -->
-                    <div id="more">
-                        <button type="button" onclick="loadItem()">+ 더보기</button>
                     </div>
                 </div>
             </div>

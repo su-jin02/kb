@@ -1,7 +1,7 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css");
 
 body {
-    background-color: #FCF9FB;
+    background-color: #E6E6E6;
     font-family: Pretendard;
 }
 
@@ -12,7 +12,7 @@ body {
 /* 타이틀 */
 #title {
     font-size: 1.25em;
-    color: #F06786;
+    color: #F7B401;
     font-weight: bold;
     padding: 10px 0;
 }
@@ -57,13 +57,13 @@ body {
     padding: 16px 0;
     border-radius: 5px;
     text-align: center;
-    background-color: #F06786;
+    background-color: #F7B401;
 }
 
 /* 작성된 글 */
 .writing{
     background-color: #fff;
-    border: 1px solid #F06786;
+    border: 1px solid #F7B401;
     border-radius: 5px;
     padding: 1em;
     margin-bottom: 0.5em;
@@ -79,7 +79,7 @@ body {
 }
 
 .nickname {
-    color: #F06786;
+    color: #F7B401;
 }
 
 .date {
@@ -93,8 +93,8 @@ body {
 }
 
 #more > * {
-    border: 1px solid #F06786;
-    color: #F06786;
+    border: 1px solid #F7B401;
+    color: #F7B401;
     background-color:transparent;
     border-radius: 7px;
     padding: 0.5em 1em;
@@ -105,7 +105,7 @@ body {
 
 /* 헤더 */
   a{
-    color: #F06786;
+    color: #F7B401;
   }
   
   #logo{
@@ -139,7 +139,14 @@ body {
     display: flex;
   
   }
-  
+
+    .menu-icon span {
+        margin-right: 8px; /* 텍스트와 이미지 사이 간격 조정 */
+    }
+    .menu-icon img {
+        width: 50px; /* 원하는 너비 */
+        height: 50px; /* 원하는 높이 */
+    }
   
   .header{
     box-sizing: border-box;
@@ -186,7 +193,7 @@ body {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    border:1px solid #F06786ed;
+    border:1px solid #F7B401ed;
   
     display: flex;
     justify-content: center;
