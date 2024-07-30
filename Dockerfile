@@ -1,6 +1,9 @@
 # Use a base image with Maven and JDK 17
 FROM maven:3.8.6-amazoncorretto-17 as builder
 
+ENV SPRING_DATASOURCE_URL=arn:aws:ssm:us-west-2:568558386229:parameter/databaseJDBCConnectionString
+ENV SPRING_DATASOURCE_PASSWORD=arn:aws:secretsmanager:us-west-2:568558386229:secret:kbdb-CRAY6C
+
 # Set the working directory
 WORKDIR /app
 
