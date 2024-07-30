@@ -99,7 +99,7 @@ public class UnicornController {
     }
     @GetMapping("/")
     public String getWelcomeMessage() {
-        return "login";
+        return "board";
     }
     
     @GetMapping("/hostname")

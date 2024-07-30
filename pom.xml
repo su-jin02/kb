@@ -211,7 +211,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.example.Main</mainClass>
+                            <mainClass>com.unicorn.store.StoreApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
