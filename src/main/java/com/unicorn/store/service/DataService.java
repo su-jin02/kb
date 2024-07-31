@@ -2,7 +2,14 @@ package com.unicorn.store.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.unicorn.store.data.BoardRepository;
+import com.unicorn.store.data.GptsFundinfoRepository;
+import com.unicorn.store.data.UserRepository;
 import com.unicorn.store.dto.Data.BoardReq;
+import com.unicorn.store.exceptions.http.CustomNotFoundException;
+import com.unicorn.store.model.Board;
+import com.unicorn.store.model.GptsFundinfo;
+import com.unicorn.store.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -11,8 +18,12 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +33,11 @@ import java.util.regex.Pattern;
 public class DataService {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final LoginService loginService;
+    private final UserRepository userRepository;
+    private final BoardRepository boardRepository;
+    private final GptsFundinfoRepository gptsFundinfoRepository;
+
 
     public String getDjangoData(BoardReq.BoardRequest boardRequest) {
         String url = "http://35.89.200.64:8000/gpt/";
@@ -40,6 +56,7 @@ public class DataService {
             log.info(result);
             // result 필드에서 포트폴리오 부분만 추출
             String extractedResult = extractPortfolio(result);
+
             return extractedResult;
         } catch (IOException e) {
             throw new RuntimeException("Failed to parse JSON response", e);
@@ -57,9 +74,49 @@ public class DataService {
         }
     }
 
-    @GetMapping("/write")
-    public String nextPage() {
-        return "write";
+    /**
+     * 펀드 추천
+     */
+    public Map<String, String> getRandomColumnWithValue() {
+        Random random = new Random();
+        Long randomId = (long) (random.nextInt(3) + 1); // assuming IDs are 1, 2, 3
+
+        GptsFundinfo fundinfo = gptsFundinfoRepository.findById(randomId).orElse(null);
+        if (fundinfo == null) {
+            return null;
+        }
+
+        Map<String, String> resultMap = new HashMap<>();
+        resultMap.put("name", fundinfo.getName());
+        resultMap.put("asset_management", fundinfo.getAssetManagement());
+        resultMap.put("total_cost", fundinfo.getTotalCost());
+        resultMap.put("three_months_return", fundinfo.getThreeMonthsReturn());
+
+        return resultMap;
     }
+
+    /**
+     * 보드 저장
+     */
+    public Long writeBoard(BoardReq.BoardWriteRequest BoardRequest) {
+        Long userId = loginService.getLoginUserId();
+        User user = userRepository.findById(userId).orElse(null);
+
+        Board board = Board.builder()
+                .user(user)
+                .house(BoardRequest.getHouse())
+                .now(BoardRequest.getNow())
+                .time(BoardRequest.getTime())
+                .preference(BoardRequest.getPreference())
+                .living(BoardRequest.getLiving())
+                .gpt(BoardRequest.getGpt())
+                .build();
+        boardRepository.save(board);
+        return board.getBoardId();
+    }
+
+
+
+
 
 }

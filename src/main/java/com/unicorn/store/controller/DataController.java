@@ -3,6 +3,7 @@ package com.unicorn.store.controller;
 import com.unicorn.store.dto.Data.BoardReq;
 import com.unicorn.store.dto.common.ErrorRes;
 import com.unicorn.store.response.BaseResponse;
+import com.unicorn.store.response.BaseResponseStatus;
 import com.unicorn.store.service.DataService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -46,12 +47,26 @@ public class DataController {
         log.info("---------------------------------------");
         Map<String, String> response = new HashMap<>();
         response.put("result", result);
-        return ResponseEntity.ok(response);
-    }
+        Map<String, String> randomColumn = dataService.getRandomColumnWithValue();
+        for (Map.Entry<String, String> entry : randomColumn.entrySet()) {
+            log.info("Key: {}, Value: {}", entry.getKey(), entry.getValue());
+        }
+        response.putAll(randomColumn);
+
+        return ResponseEntity.ok(response);}
 
     @GetMapping("/write")
     public String getWelcomeMessage() {
         return "write";
+    }
+
+    @Operation(summary = "보드 작성", description = "보드 작성 API 입니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "작성 성공", content = @Content(schema = @Schema(implementation = BaseResponse.class)))
+    })
+    @PostMapping("/write")
+    public BaseResponse<Long> writeData(@Parameter(description = "데이터 보드 작성 요청 객체") @Valid @RequestBody BoardReq.BoardWriteRequest BoardRequest) {
+        return BaseResponse.success(BaseResponseStatus.CREATED, dataService.writeBoard(BoardRequest));
     }
 
 }

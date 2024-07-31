@@ -31,87 +31,9 @@ public class UnicornController {
         this.unicornService = unicornService;
     }
 
-    @PostMapping("/unicorns")
-    public ResponseEntity<Unicorn> createUnicorn(@RequestBody Unicorn unicorn) {
-        try {
-            var savedUnicorn = unicornService.createUnicorn(unicorn);
-            return ResponseEntity.ok(savedUnicorn);
-        } catch (Exception e) {
-            String errorMsg = "Error creating unicorn";
-            logger.error(errorMsg, e);
-            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, errorMsg, e);
-        } finally {
-        }
-    }
-
-    @GetMapping("/unicorns")
-    public ResponseEntity<List<Unicorn>> getAllUnicorns() {
-
-        try {
-            var savedUnicorns = unicornService.getAllUnicorns();
-            return ResponseEntity.ok(savedUnicorns);
-        } catch (Exception e) {
-            String errorMsg = "Error reading unicorns";
-            logger.error(errorMsg, e);
-            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, errorMsg, e);
-        } finally {
-        }
-    }
-
-    @PutMapping("/unicorns/{unicornId}")
-    public ResponseEntity<Unicorn> updateUnicorn(@RequestBody Unicorn unicorn,
-            @PathVariable String unicornId) {
-        try {
-            var savedUnicorn = unicornService.updateUnicorn(unicorn, unicornId);
-            return ResponseEntity.ok(savedUnicorn);
-        } catch (Exception e) {
-            String errorMsg = "Error updating unicorn";
-            logger.error(errorMsg, e);
-            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, errorMsg, e);
-        } finally {
-        }
-    }
-
-    @GetMapping("/unicorns/{unicornId}")
-    public ResponseEntity<Unicorn> getUnicorn(@PathVariable String unicornId) {
-        try {
-            var unicorn = unicornService.getUnicorn(unicornId);
-            return ResponseEntity.ok(unicorn);
-        } catch (ResourceNotFoundException e) {
-            String errorMsg = "Unicorn not found";
-            logger.error(errorMsg, e);
-            throw new ResponseStatusException(NOT_FOUND, errorMsg, e);
-        } finally {
-        }
-    }
-
-    @DeleteMapping("/unicorns/{unicornId}")
-    public ResponseEntity<String> deleteUnicorn(@PathVariable String unicornId) {
-        try {
-            unicornService.deleteUnicorn(unicornId);
-            return ResponseEntity.ok().build();
-        } catch (ResourceNotFoundException e) {
-            String errorMsg = "Unicorn not found";
-            logger.error(errorMsg, e);
-            throw new ResponseStatusException(NOT_FOUND, errorMsg, e);
-        } finally {
-        }
-    }
     @GetMapping("/")
     public String getWelcomeMessage() {
         return "board";
     }
 
-    
-    @GetMapping("/hostname")
-    public ResponseEntity<String> getHostname() {
-        try {
-            InetAddress inetAddress = InetAddress.getLocalHost();
-            return new ResponseEntity<>(inetAddress.getHostName(), HttpStatus.OK);
-        } catch (UnknownHostException e) {
-            String errorMsg = "Error getHostname";
-            logger.error(errorMsg, e);
-            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, errorMsg, e);
-        }
-    }
 }

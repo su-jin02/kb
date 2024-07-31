@@ -13,6 +13,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
+    var resultData; // 전역 변수로 선언하여 첫 번째 함수의 결과를 저장
+
     function submitForm1(event) {
       event.preventDefault();
       var formData = {
@@ -32,14 +34,52 @@
       })
               .then(response => response.json())
               .then(data => {
+                // 결과 데이터를 디버그 출력
+                console.log(data);
+                // 기본 결과 처리
                 document.getElementById('result').innerText = data.result;
                 document.getElementById('hiddenField').value = data.result;
+                resultData = data.result; // 결과값을 전역 변수에 저장
+
+                // 추가된 데이터 표시
+                var additionalResultsContainer = document.getElementById('additional-results');
+                additionalResultsContainer.innerHTML = ''; // 기존 내용을 초기화
+
+                for (const key in data) {
+                  if (data.hasOwnProperty(key) && key !== 'result') {
+                    var resultDiv = document.createElement('div');
+                    resultDiv.innerText = `${key}: ${data[key]}`;
+                    additionalResultsContainer.appendChild(resultDiv);
+                  }
+                }
               })
               .catch(error => console.error('Error:', error));
     }
 
     function submitForm2(event) {
-      document.getElementById('dynamicForm').action = '/upload2';
+      event.preventDefault();
+      var formData = {
+        house: document.getElementById('house').value,
+        now: document.getElementById('now').value,
+        time: document.getElementById('time').value,
+        preference: document.getElementById('preference').value,
+        living: document.getElementById('living').value,
+        gpt: resultData // 첫 번째 함수의 결과값을 gpt 필드에 저장
+      };
+
+      fetch('/write', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+              .then(response => {
+                if (response.ok) {
+                  window.location.href = '/'; // 성공적으로 완료되면 리다이렉트
+                }
+              })
+              .catch(error => console.error('Error:', error));
     }
   </script>
 </head>
@@ -99,6 +139,7 @@
           <div class="caution" id="result">
             <div>* 포토폴리오를 짜드립니다.</div>
           </div>
+          <div id="additional-results"></div> <!-- 추가된 데이터 표시 -->
           <input type="hidden" id="hiddenField" name="hiddenData" />
           <input type="submit" id="submit2" value="결과 업로드" onclick="submitForm2(event)">
         </div>
