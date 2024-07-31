@@ -62,12 +62,12 @@ body {
 
 /* 작성된 글 */
 .writing{
-    background-color: #fff;
+    background-color: #FCF9FB;
     border: 1px solid #F7B401;
     border-radius: 5px;
     padding: 1em;
     margin-bottom: 0.5em;
-    box-shadow: 5px 5px 5px #E6E6E6;
+    box-shadow: 5px 5px 5px #FCF9FB;
 }
 
 .writing_tx {
@@ -83,7 +83,7 @@ body {
 }
 
 .date {
-    color: #A0A0A0;
+    color: #FCF9FB;
     float: right;
 }
 
@@ -144,8 +144,8 @@ body {
         margin-right: 8px; /* 텍스트와 이미지 사이 간격 조정 */
     }
     .menu-icon img {
-        width: 50px; /* 원하는 너비 */
-        height: 50px; /* 원하는 높이 */
+        width: 35px; /* 원하는 너비 */
+        height: 35px; /* 원하는 높이 */
     }
   
   .header{

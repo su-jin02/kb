@@ -174,6 +174,7 @@ public class UserService {
 
         String email = userResourceNode.get("kakao_account").get("email").asText();
         String is_email_verified = userResourceNode.get("kakao_account").get("is_email_verified").asText();
+        String nickname = userResourceNode.get("properties").get("nickname").asText();
 
         // 카카오 서버 상에서 검증된 이메일인 경우
         if(is_email_verified.equals("true")){
@@ -186,6 +187,7 @@ public class UserService {
                 //회원가입
                 UserReq.SocialLogin newKakaoUserDto = UserReq.SocialLogin.builder()
                         .email(email)
+                        .nickname(nickname)
                         .password(bCryptPasswordEncoder.encode(UUID.randomUUID().toString()))
                         .build();
                 user = newKakaoUserDto.toEntity();

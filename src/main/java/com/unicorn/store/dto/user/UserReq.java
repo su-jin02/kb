@@ -44,9 +44,13 @@ public class UserReq {
         @NotNull
         String password;
 
+        @NotNull
+        String nickname;
+
         public User toEntity(){
             return User.builder()
                     .email(email)
+                    .nickname(nickname)
                     .password(password)
                     .build();
         }

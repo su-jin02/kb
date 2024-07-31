@@ -12,7 +12,7 @@ body {
 /* 타이틀 */
 #title {
     font-size: 1.25em;
-    color: #F06786;
+    color: #F7B401ed;
     font-weight: bold;
     padding: 10px 0;
 }
@@ -44,7 +44,7 @@ body {
 }
 
 .text {
-    border: 1px solid #F06786;
+    border: 1px solid #F7B401ed;
     border-radius: 5px;
     margin: 8px 0;
     width: calc(100% - 32px);
@@ -61,7 +61,7 @@ body {
 }
 
 .container input {
-    border: 1px solid #F06786;
+    border: 1px solid #F7B401ed;
     border-radius: 7px;
     width: calc(100% - 32px);
     padding: 16px;
@@ -72,15 +72,15 @@ body {
 #submit {
     width: 100%;
     padding: 16px 0;
-    background-color: #F06786;
+    background-color: #F7B401ed;
     color: #fff;
     font-weight: 700;
 }
 
 /* 주의사항 */
 .caution {
-    font-size: 0.8em;
-    color: #A0A0A0;
+    font-size: 2em;
+    color: #776051;
     margin: 16px 0;
 }
 
@@ -96,7 +96,7 @@ body {
   } */
   
   a{
-    color: #F06786;
+    color: #F7B401ed;
   }
   
   #logo{
@@ -177,7 +177,7 @@ body {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    border:1px solid #F06786ed;
+    border:1px solid #F7B401ed;
   
     display: flex;
     justify-content: center;

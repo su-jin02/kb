@@ -59,12 +59,12 @@ public class UserController {
         redirectAttributes.addFlashAttribute("tokenResponseJson", tokenResponseJson);
 
         // Redirect to home
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("redirect:/board");
     }
 
-    @GetMapping("/home")
+    @GetMapping("/board")
     public ModelAndView home(@ModelAttribute("tokenResponseJson") String tokenResponseJson) throws JsonProcessingException {
-        ModelAndView modelAndView = new ModelAndView("home");
+        ModelAndView modelAndView = new ModelAndView("board");
 
         if (tokenResponseJson != null) {
             // Convert JSON string back to TokenResponseDto
