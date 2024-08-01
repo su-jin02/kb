@@ -1,6 +1,9 @@
 package com.unicorn.store.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unicorn.store.dto.Data.BoardRes;
+import com.unicorn.store.security.dto.TokenResponseDto;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import com.unicorn.store.data.BoardRepository;
@@ -61,11 +64,21 @@ public class DataController {
     })
     @GetMapping("/")
     @Transactional
-    public String userDrawingList(Model model, @ModelAttribute("nickname") String nickname) {
+    public String userDrawingList(Model model, @ModelAttribute("tokenResponseJson") String tokenResponseJson) throws JsonProcessingException {
         // 닉네임이 있는 경우에만 모델에 추가
-        if (nickname != null) {
-            model.addAttribute("nickname", nickname);
+        if (tokenResponseJson != null && !tokenResponseJson.isEmpty()) {
+            System.out.println("Token Response JSON: " + tokenResponseJson);
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                TokenResponseDto tokenResponse = objectMapper.readValue(tokenResponseJson, TokenResponseDto.class);
+                if (tokenResponse != null && tokenResponse.getNickname() != null) {
+                    model.addAttribute("nickname", tokenResponse.getNickname());
+                }
+            } catch (JsonProcessingException e) {
+                System.err.println("JSON 처리 중 오류 발생: " + e.getMessage());
+            }
         }
+
 
         // 보드 리스트를 가져와서 모델에 추가
         BoardRes.Multiple boards = dataService.listDrawing();

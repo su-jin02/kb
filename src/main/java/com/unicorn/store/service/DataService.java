@@ -70,6 +70,7 @@ public class DataService {
     }
 
     private String extractPortfolio(String response) {
+        log.info(response);
         // 정규 표현식을 사용하여 포트폴리오 부분 추출
         Pattern pattern = Pattern.compile("\\{\\s*\"Domestic Equity Fund\"[\\s\\S]*?\\}");
         Matcher matcher = pattern.matcher(response);
