@@ -61,12 +61,19 @@ public class DataController {
     })
     @GetMapping("/")
     @Transactional
-    public String userDrawingList(Model model) {
+    public String userDrawingList(Model model, @ModelAttribute("nickname") String nickname) {
+        // 닉네임이 있는 경우에만 모델에 추가
+        if (nickname != null) {
+            model.addAttribute("nickname", nickname);
+        }
+
+        // 보드 리스트를 가져와서 모델에 추가
         BoardRes.Multiple boards = dataService.listDrawing();
         List<Map<String, String>> boardList = boards.getDrawingList().stream()
                 .map(BoardRes.Base::toKoreanMap)
                 .collect(Collectors.toList());
         model.addAttribute("boards", boards.getDrawingList());
+
         return "board"; // HTML 파일명과 일치해야 합니다.
     }
 

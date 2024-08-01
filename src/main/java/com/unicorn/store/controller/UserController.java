@@ -62,19 +62,20 @@ public class UserController {
         return new ModelAndView("redirect:/");
     }
 
-    @GetMapping("/board")
-    public ModelAndView home(@ModelAttribute("tokenResponseJson") String tokenResponseJson) throws JsonProcessingException {
-        ModelAndView modelAndView = new ModelAndView("board");
+//    @GetMapping("/board")
+//    public ModelAndView home(@ModelAttribute("tokenResponseJson") String tokenResponseJson) throws JsonProcessingException {
+//        ModelAndView modelAndView = new ModelAndView("board");
+//
+//        if (tokenResponseJson != null) {
+//            // Convert JSON string back to TokenResponseDto
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            TokenResponseDto tokenResponse = objectMapper.readValue(tokenResponseJson, TokenResponseDto.class);
+//            modelAndView.addObject("nickname", tokenResponse.getNickname());
+//        }
+//
+//        return modelAndView;
+//    }
 
-        if (tokenResponseJson != null) {
-            // Convert JSON string back to TokenResponseDto
-            ObjectMapper objectMapper = new ObjectMapper();
-            TokenResponseDto tokenResponse = objectMapper.readValue(tokenResponseJson, TokenResponseDto.class);
-            modelAndView.addObject("nickname", tokenResponse.getNickname());
-        }
-
-        return modelAndView;
-    }
 
     /**
      * 닉네임 변경
