@@ -38,7 +38,7 @@ public class UnicornService {
         return unicornList;
     }
 
-    public Unicorn updateUnicorn(Unicorn unicorn, String unicornId) {
+    public Unicorn updateUnicorn(Unicorn unicorn, Long unicornId) {
         unicorn.setId(unicornId);
         var savedUnicorn = unicornRepository.save(unicorn);
         unicornPublisher.publish(savedUnicorn, UnicornEventType.UNICORN_UPDATED);
