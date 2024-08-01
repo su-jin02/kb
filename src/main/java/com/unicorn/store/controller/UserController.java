@@ -84,9 +84,8 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "닉네임 변경 성공", content = @Content(schema = @Schema(implementation = BaseResponse.class))),
             @ApiResponse(responseCode = "409", description = "이미 저장된 닉네임", content = @Content(schema = @Schema(implementation = ErrorRes.class)))
     })
-    @PostMapping(value = "/nickname", produces = "application/json")
-
-    public BaseResponse chanNickname(@Parameter(description = "닉네임 변경 요청 객체") @Valid @RequestBody UserReq.ChangeNickname changeNickname ) {
+    @PatchMapping(value = "/nickname", produces = "application/json")
+    public BaseResponse changeNickname(@Parameter(description = "닉네임 변경 요청 객체") @Valid @RequestBody UserReq.ChangeNickname changeNickname) {
         userService.changeNickname(changeNickname);
         return BaseResponse.success(BaseResponseStatus.OK);
     }

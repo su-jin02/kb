@@ -23,7 +23,7 @@ public enum ErrorCode {
     INVALID_PASSWORD(4033, "올바르지 않은 비밀번호 입니다."),
 
     //404 NOT_FOUND 잘못된 리소스 접근
-    NOT_FOUND_USER(40401, "존재하지 않는 회원입니다."),
+    NOT_FOUND_USER(40401, "권한이 없습니다."),
     NOT_FOUND_DRAWING(40402, "존재하지 않는 도안입니다."),
     NOT_FOUND_JWT(40403, "존재하지 않는 Token 입니다."),
 

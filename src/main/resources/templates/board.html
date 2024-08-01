@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/visitor.css}" />
     <link rel="stylesheet" type="text/css" href="/css/visitor.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css" />
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/js/visitor.js"></script>
 </head>
@@ -20,47 +18,49 @@
     <input class="menu-btn" type="checkbox" id="menu-btn" />
     <label class="menu-icon" for="menu-btn" onclick="toggle()">
         <div class="menu-button">
-            <img src="/img/user.png" alt="유저"></a>
+            <img src="/img/user.png" alt="유저">
         </div>
-        <p id="userNickname" th:text="${nickname} != null ? 'Hello, ' + ${nickname} + '!' : 'Hello'">Loading...</p>
+        <p id="userNickname" th:text="${nickname != null ? 'Hello, ' + nickname + '!' : 'Hello'}">Loading...</p>
         <a href="#" th:href="@{https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=7b2fc53cc41e93426b7ff90ec6fcd41c&redirect_uri=http://localhost:8080/login/oauth2/code/kakao}">
             <img src="/img/kakao.png" alt="카카오 로그인">
         </a>
     </label>
 </header>
-<form action="" method="POST" enctype="multipart/form-data">
-    <div class="container_main" id="blur">
-        <main>
-            <div id="wrap">
-                <div id="title">
-                    <div class="title_photo">
-                        <img src="/img/staricon.svg" alt="Star Icon">
-                    </div>
-                    <div class="title_tx">정보 확인</div>
-                </div>
-                <div class="container">
-                    <div class="title_ex">데이터를 활용해!</div>
-                    <!-- 글쓰기 화면과 연결하기 -->
-                    <a href="/write" class="write_btn">
-                        <div class="write_btn_tx">검사하기</div>
-                    </a>
 
-                    <!-- 백엔드랑 연결할 부분 -->
-                    <!-- 예시로 Thymeleaf 사용 -->
-                    <div th:each="visitor : ${visitorList}">
-                        <div class="writing">
-                            <div class="writing_tx" th:text="${visitor.content}">글 내용</div>
-                            <div class="writing_info">
-                                <span class="nickname" th:text="${visitor.nickname}">닉네임</span>
-                                <span class="date" th:text="${#dates.format(visitor.date, 'yyyy.MM.dd')}">작성 날짜</span>
-                            </div>
+<div class="container_main" id="blur">
+    <main>
+        <div id="wrap">
+            <div id="title">
+                <div class="title_photo">
+                    <img src="/img/staricon.svg" alt="Star Icon">
+                </div>
+                <div class="title_tx">포토폴리오 모아보기</div>
+            </div>
+            <div class="container">
+                <div class="title_ex">나의 꿈의 집을 입력하고 포토폴리오를 추천받으세요!</div>
+                <a href="/write" class="write_btn">
+                    <div class="write_btn_tx">검사하기</div>
+                </a>
+
+                <div th:each="board : ${boards}">
+                    <div class="writing">
+                        <div class="writing_tx">꿈의 집: <span th:text="${board.house}">House Info</span></div>
+                        <div class="writing_tx">현재 자금: <span th:text="${board.now}">Now Info</span></div>
+                        <div class="writing_tx">목표 년수: <span th:text="${board.time}">Time Info</span></div>
+                        <div class="writing_tx">투자 성향: <span th:text="${board.preference}">Preference Info</span></div>
+                        <div class="writing_tx">매달 생활비: <span th:text="${board.living}">Living Info</span></div>
+                        <div class="writing_tx">포토폴리오: <span th:text="${board.gpt}">GPT Info</span></div>
+                        <div class="writing_info">
+                            <span class="nickname" th:text="${board.userNickname}">닉네임</span>
                         </div>
                     </div>
                 </div>
+
             </div>
-        </main>
-    </div>
-</form>
+        </div>
+    </main>
+</div>
+
 <script type="text/javascript">
     function toggle() {
         var blur = document.getElementById('blur');

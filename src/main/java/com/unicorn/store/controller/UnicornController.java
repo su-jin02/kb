@@ -31,9 +31,9 @@ public class UnicornController {
         this.unicornService = unicornService;
     }
 
-    @GetMapping("/")
-    public String getWelcomeMessage() {
-        return "board";
-    }
+//    @GetMapping("/")
+//    public String getWelcomeMessage() {
+//        return "board";
+//    }
 
 }

@@ -6,26 +6,32 @@ import com.unicorn.store.data.BoardRepository;
 import com.unicorn.store.data.GptsFundinfoRepository;
 import com.unicorn.store.data.UserRepository;
 import com.unicorn.store.dto.Data.BoardReq;
+import com.unicorn.store.dto.Data.BoardRes;
 import com.unicorn.store.exceptions.http.CustomNotFoundException;
 import com.unicorn.store.model.Board;
 import com.unicorn.store.model.GptsFundinfo;
 import com.unicorn.store.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -114,6 +120,22 @@ public class DataService {
         boardRepository.save(board);
         return board.getBoardId();
     }
+
+    /**
+     * 보드 목록
+     */
+    @Transactional
+    public BoardRes.Multiple listDrawing() {
+        //Long userId = loginService.getLoginUserId();
+        List<Board> boards = boardRepository.findAll();
+
+        List<BoardRes.Base> userDrawingList = boards.stream()
+                .map(board -> BoardRes.Base.of(board))
+                .collect(Collectors.toList());
+
+        return BoardRes.Multiple.of(userDrawingList);
+    }
+
 
 
 
