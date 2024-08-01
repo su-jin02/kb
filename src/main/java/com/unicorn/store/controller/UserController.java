@@ -59,7 +59,7 @@ public class UserController {
         redirectAttributes.addFlashAttribute("tokenResponseJson", tokenResponseJson);
 
         // Redirect to home
-        return new ModelAndView("redirect:/board");
+        return new ModelAndView("redirect:/");
     }
 
     @GetMapping("/board")
