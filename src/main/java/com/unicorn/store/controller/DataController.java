@@ -6,12 +6,10 @@ import com.unicorn.store.dto.Data.BoardRes;
 import com.unicorn.store.security.dto.TokenResponseDto;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import com.unicorn.store.data.BoardRepository;
 import com.unicorn.store.dto.Data.BoardReq;
 import com.unicorn.store.response.BaseResponse;
 import com.unicorn.store.response.BaseResponseStatus;
 import com.unicorn.store.service.DataService;
-import com.unicorn.store.service.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -94,12 +92,12 @@ public class DataController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "작성 성공", content = @Content(schema = @Schema(implementation = BaseResponse.class)))
     })
-    @PostMapping("/write")
+    @PostMapping("/board/write")
     public BaseResponse<Long> writeData(@Parameter(description = "데이터 보드 작성 요청 객체") @Valid @RequestBody BoardReq.BoardWriteRequest BoardRequest) {
         return BaseResponse.success(BaseResponseStatus.CREATED, dataService.writeBoard(BoardRequest));
     }
 
-    @GetMapping("/write")
+    @GetMapping("/board/write")
     public String getWelcomeMessage() {
         return "write";
     }

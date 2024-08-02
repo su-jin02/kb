@@ -2,7 +2,6 @@ package com.unicorn.store.dto.Data;
 
 import com.unicorn.store.model.Board;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

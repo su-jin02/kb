@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Write</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />
-  <link rel="stylesheet" type="text/css" th:href="@{/css/visitor-write.css}" />
-  <link rel="stylesheet" type="text/css" href="/css/visitor-write.css" />
+  <link rel="stylesheet" type="text/css" th:href="@{/css/board-write.css}" />
+  <link rel="stylesheet" type="text/css" href="/css/board-write.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -83,7 +83,7 @@
         gpt: resultData // 첫 번째 함수의 결과값을 gpt 필드에 저장
       };
 
-      fetch('/write', {
+      fetch('/board/write', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

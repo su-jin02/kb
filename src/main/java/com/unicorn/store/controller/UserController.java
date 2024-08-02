@@ -62,21 +62,6 @@ public class UserController {
         return new ModelAndView("redirect:/");
     }
 
-//    @GetMapping("/board")
-//    public ModelAndView home(@ModelAttribute("tokenResponseJson") String tokenResponseJson) throws JsonProcessingException {
-//        ModelAndView modelAndView = new ModelAndView("board");
-//
-//        if (tokenResponseJson != null) {
-//            // Convert JSON string back to TokenResponseDto
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            TokenResponseDto tokenResponse = objectMapper.readValue(tokenResponseJson, TokenResponseDto.class);
-//            modelAndView.addObject("nickname", tokenResponse.getNickname());
-//        }
-//
-//        return modelAndView;
-//    }
-
-
     /**
      * 닉네임 변경
      */
@@ -85,7 +70,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "닉네임 변경 성공", content = @Content(schema = @Schema(implementation = BaseResponse.class))),
             @ApiResponse(responseCode = "409", description = "이미 저장된 닉네임", content = @Content(schema = @Schema(implementation = ErrorRes.class)))
     })
-    @PatchMapping(value = "/nickname", produces = "application/json")
+    @PatchMapping(value = "/user", produces = "application/json")
     public BaseResponse changeNickname(@Parameter(description = "닉네임 변경 요청 객체") @Valid @RequestBody UserReq.ChangeNickname changeNickname) {
         userService.changeNickname(changeNickname);
         return BaseResponse.success(BaseResponseStatus.OK);

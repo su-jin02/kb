@@ -16,9 +16,6 @@ import java.util.Optional;
 public class LoginService {
     public Long getLoginUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info("-------loginservice------------");
-        log.info(String.valueOf(authentication));
-        log.info("-------------------");
         if (UsernamePasswordAuthenticationToken.class.isAssignableFrom(
                 Optional.ofNullable(authentication)
                         .orElseThrow(() -> new CustomForbiddenException(ErrorCode.FORBIDDEN)).getClass())) {
